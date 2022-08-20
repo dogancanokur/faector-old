@@ -22,7 +22,7 @@ public class User {
     String username;
     @Column(name = "display_name", length = 50, nullable = false)
     String displayName;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     String password;
 
     @Override
