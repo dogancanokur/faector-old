@@ -14,23 +14,22 @@ class UserSignUpPage extends React.Component {
         this.setState({[name]: value});
     }
 
-    onClickSignUp = (event) => {
+    onClickSignUp = async (event) => {
         event.preventDefault();
         const {username, displayName, password} = this.state;
         this.setState({pendingApiCall: true});
         const body = {username, displayName, password}
-        signUp(body)
-            .then((response) => {
-                console.log(response);
-                this.setState({pendingApiCall: false});
-            })
-            .catch((error) => {
-                console.log(error);
-                this.setState({pendingApiCall: false});
-            });
+        try {
+            const response = await signUp(body);
+            console.log(response);
+        } catch (e) {
+            console.log(e);
+        }
+        this.setState({pendingApiCall: false});
     }
 
     render() {
+        const {pendingApiCall} = this.state;
         return (
             <div className={"container"}>
                 <form>
@@ -57,10 +56,8 @@ class UserSignUpPage extends React.Component {
                     </div>
 
                     <div className={"text-center"}>
-                        <button className="btn btn-primary"
-                                disabled={this.state.pendingApiCall}
-                                onClick={this.onClickSignUp}>
-                            {this.state.pendingApiCall &&
+                        <button className="btn btn-primary" disabled={pendingApiCall} onClick={this.onClickSignUp}>
+                            {pendingApiCall &&
                                 <span className="spinner-border-sm spinner-border mr-1"></span>}Sign Up
                         </button>
                     </div>
