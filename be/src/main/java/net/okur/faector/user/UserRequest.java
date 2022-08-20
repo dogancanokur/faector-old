@@ -12,6 +12,7 @@ public class UserRequest {
     Long id;
     @NotNull
     @Size(min = 4, max = 50)
+    @UniqueUsername
     String username;
     @NotNull
     @Size(min = 4, max = 50)
