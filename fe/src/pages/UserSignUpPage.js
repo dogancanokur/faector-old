@@ -9,7 +9,17 @@ class UserSignUpPage extends React.Component {
     onChangeInput = (event) => {
         const {name, value} = event.target;
         const errors = {...this.state.errors};
-        errors[name] = undefined;
+        if (name === "password" || name === "passwordRepeat") {
+            if ((name === "password" && value !== this.state.passwordRepeat) ||
+                name === "passwordRepeat" && value !== this.state.password) {
+                errors["passwordRepeat"] = "password mismatch";
+            } else {
+                errors["passwordRepeat"] = undefined;
+                errors[name] = undefined;
+            }
+        } else {
+            errors[name] = undefined;
+        }
         this.setState({
             [name]: value, errors
         });
@@ -36,18 +46,14 @@ class UserSignUpPage extends React.Component {
         return (<div className={"container"}>
             <form>
                 <h1>Sign Up</h1>
-                <div className={"form-group"}>
-                    <label htmlFor="username">Username</label>
-                    <div className="input-group mb-3">
-                        <div className="input-group-prepend">
-                            <span className="input-group-text" id="basic-addon1">@</span>
-                        </div>
-                        <input className={errors.username ? "form-control is-invalid" : "form-control"} type="text"
-                               id={"username"} name={"username"}
-                               placeholder={"Username"} onChange={this.onChangeInput}/>
-                        <div className="invalid-feedback">{errors.username}</div>
-                    </div>
-                </div>
+
+                <Input id={"username"}
+                       label={"Username"}
+                       error={errors.username}
+                       type={"text"}
+                       name={"username"}
+                       placeholder={"Username"}
+                       onchange={this.onChangeInput}></Input>
 
                 <Input id={"displayName"}
                        label={"Display Name"}
@@ -69,12 +75,13 @@ class UserSignUpPage extends React.Component {
                        label={"Password Repeat"}
                        error={errors.passwordRepeat}
                        type={"password"}
-                       name={"password"}
+                       name={"passwordRepeat"}
                        placeholder={"Password Repeat"}
                        onchange={this.onChangeInput}></Input>
 
                 <div className={"text-center"}>
-                    <button className="btn btn-primary" disabled={pendingApiCall} onClick={this.onClickSignUp}>
+                    <button className="btn btn-primary" disabled={pendingApiCall || errors.passwordRepeat !== undefined}
+                            onClick={this.onClickSignUp}>
                         {pendingApiCall && <span className="spinner-border-sm spinner-border mr-1"></span>}Sign Up
                     </button>
                 </div>
