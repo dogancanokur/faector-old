@@ -1,5 +1,5 @@
 import React from "react";
-import {signUp} from "../api/apiCalls";
+import {changeLanguage, signUp} from "../api/apiCalls";
 import Input from "../components/Input";
 import {withTranslation} from "react-i18next";
 
@@ -42,13 +42,28 @@ class UserSignUpPage extends React.Component {
         }
         this.setState({pendingApiCall: false});
     }
+    onChangeLanguage = (language) => {
+        const {i18n} = this.props;
+        i18n.changeLanguage(language);
+        changeLanguage(language);
+    }
 
     render() {
         const {pendingApiCall, errors} = this.state;
         const {t} = this.props;
         return (<div className={"container"}>
             <form>
-                <h1>{t('SignUp')}</h1>
+
+                <div>
+                    <h1 className={'d-inline-flex'}>{t('SignUp')}</h1>
+                    <div className={'text-right'}>
+                        <img style={{cursor: 'pointer'}} src="/img/flags/flat/tr.png" alt="Turkey Flag"
+                             onClick={() => this.onChangeLanguage('tr')}/>
+                        &nbsp;
+                        <img style={{cursor: 'pointer'}} src="/img/flags/flat/en.png" alt="Great Britain Flag"
+                             onClick={() => this.onChangeLanguage('en')}/>
+                    </div>
+                </div>
 
                 <Input id={'username'}
                        label={t('Username')}
