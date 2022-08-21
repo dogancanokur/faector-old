@@ -1,18 +1,20 @@
 import React from "react";
 import {signUp} from "../api/apiCalls";
 import Input from "../components/Input";
+import {withTranslation} from "react-i18next";
 
 class UserSignUpPage extends React.Component {
     state = {
         username: null, displayName: null, password: null, passwordRepeat: null, pendingApiCall: false, errors: {}
     }
     onChangeInput = (event) => {
+        const {t} = this.props;
         const {name, value} = event.target;
         const errors = {...this.state.errors};
         if (name === "password" || name === "passwordRepeat") {
             if ((name === "password" && value !== this.state.passwordRepeat) ||
                 name === "passwordRepeat" && value !== this.state.password) {
-                errors["passwordRepeat"] = "password mismatch";
+                errors["passwordRepeat"] = t('PasswordMismatch');
             } else {
                 errors["passwordRepeat"] = undefined;
                 errors[name] = undefined;
@@ -43,46 +45,48 @@ class UserSignUpPage extends React.Component {
 
     render() {
         const {pendingApiCall, errors} = this.state;
+        const {t} = this.props;
         return (<div className={"container"}>
             <form>
-                <h1>Sign Up</h1>
+                <h1>{t('SignUp')}</h1>
 
-                <Input id={"username"}
-                       label={"Username"}
+                <Input id={'username'}
+                       label={t('Username')}
                        error={errors.username}
-                       type={"text"}
-                       name={"username"}
-                       placeholder={"Username"}
+                       type={'text'}
+                       name={'username'}
+                       placeholder={t('Username')}
                        onchange={this.onChangeInput}></Input>
 
                 <Input id={"displayName"}
-                       label={"Display Name"}
+                       label={t('DisplayName')}
                        error={errors.displayName}
                        type={"text"}
                        name={"displayName"}
-                       placeholder={"Display Name"}
+                       placeholder={t('DisplayName')}
                        onchange={this.onChangeInput}></Input>
 
                 <Input id={"password"}
-                       label={"Password"}
+                       label={t('Password')}
                        error={errors.password}
                        type={"password"}
                        name={"password"}
-                       placeholder={"Password"}
+                       placeholder={t('Password')}
                        onchange={this.onChangeInput}></Input>
 
                 <Input id={"passwordRepeat"}
-                       label={"Password Repeat"}
+                       label={t('PasswordRepeat')}
                        error={errors.passwordRepeat}
                        type={"password"}
                        name={"passwordRepeat"}
-                       placeholder={"Password Repeat"}
+                       placeholder={t('PasswordRepeat')}
                        onchange={this.onChangeInput}></Input>
 
                 <div className={"text-center"}>
                     <button className="btn btn-primary" disabled={pendingApiCall || errors.passwordRepeat !== undefined}
                             onClick={this.onClickSignUp}>
-                        {pendingApiCall && <span className="spinner-border-sm spinner-border mr-1"></span>}Sign Up
+                        {pendingApiCall &&
+                            <span className="spinner-border-sm spinner-border mr-1"></span>}{t('Sign Up')}
                     </button>
                 </div>
             </form>
@@ -90,4 +94,4 @@ class UserSignUpPage extends React.Component {
     }
 }
 
-export default UserSignUpPage;
+export default withTranslation()(UserSignUpPage);
