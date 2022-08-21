@@ -10,15 +10,15 @@ import javax.validation.constraints.Size;
 @Data
 public class UserRequest {
     Long id;
-    @NotNull
+    @NotNull(message = "{faector.constraints.username.NotNull.message}")
     @Size(min = 4, max = 50)
     @UniqueUsername
     String username;
-    @NotNull
+    @NotNull(message = "{faector.constraints.displayName.NotNull.message}")
     @Size(min = 4, max = 50)
     String displayName;
-    @NotNull
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "Password must be contains at least one uppercase, one lowercase and one numeric.")
+    @NotNull(message = "{faector.constraints.password.NotNull.message}")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{faector.constraints.password-mismatch.message}")
     @Size(min = 4, max = 50)
     String password;
 }

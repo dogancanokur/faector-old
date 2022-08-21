@@ -88,3 +88,5 @@ yarn-debug.log*
 yarn-error.log*
 /fe/HELP.md
 /be/.mvn/
+
+*.db
