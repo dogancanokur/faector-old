@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import './bootstrap-override.scss';
 import reportWebVitals from './reportWebVitals';
-import UserSignUpPage from "./pages/UserSignUpPage";
 import './i18n';
 import LanguageSelector from "./components/LanguageSelector";
+import LoginPage from "./pages/LoginPage";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>
-        <UserSignUpPage/>
+        <LoginPage/>
         <LanguageSelector/>
     </React.StrictMode>
 );

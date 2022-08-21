@@ -10,7 +10,8 @@ i18next.use(initReactI18next).init({
                 'DisplayName': 'Display Name',
                 'PasswordRepeat': 'Password Repeat',
                 'Password': 'Password',
-                'PasswordMismatch': 'Password Mismatch'
+                'PasswordMismatch': 'Password Mismatch',
+                'Login': 'Login'
             }
         },
         tr: {
@@ -20,7 +21,8 @@ i18next.use(initReactI18next).init({
                 'DisplayName': 'Görünen İsim',
                 'PasswordRepeat': 'Şifreyi Tekrarla',
                 'Password': 'Şifre',
-                'PasswordMismatch': 'Şifreler aynı olmalıdır.'
+                'PasswordMismatch': 'Şifreler aynı olmalıdır.',
+                'Login': 'Giriş Yap'
             }
         }
     },
