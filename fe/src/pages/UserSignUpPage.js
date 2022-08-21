@@ -1,5 +1,5 @@
 import React from "react";
-import {changeLanguage, signUp} from "../api/apiCalls";
+import {signUp} from "../api/apiCalls";
 import Input from "../components/Input";
 import {withTranslation} from "react-i18next";
 
@@ -42,70 +42,59 @@ class UserSignUpPage extends React.Component {
         }
         this.setState({pendingApiCall: false});
     }
-    onChangeLanguage = (language) => {
-        const {i18n} = this.props;
-        i18n.changeLanguage(language);
-        changeLanguage(language);
-    }
 
     render() {
         const {pendingApiCall, errors} = this.state;
         const {t} = this.props;
-        return (<div className={"container"}>
-            <form>
-
-                <div>
-                    <h1 className={'d-inline-flex'}>{t('SignUp')}</h1>
-                    <div className={'text-right'}>
-                        <img style={{cursor: 'pointer'}} src="/img/flags/flat/tr.png" alt="Turkey Flag"
-                             onClick={() => this.onChangeLanguage('tr')}/>
-                        &nbsp;
-                        <img style={{cursor: 'pointer'}} src="/img/flags/flat/en.png" alt="Great Britain Flag"
-                             onClick={() => this.onChangeLanguage('en')}/>
+        return (
+            <div className={"container"}>
+                <form>
+                    <div>
+                        <h1 className={'d-inline-flex'}>{t('SignUp')}</h1>
                     </div>
-                </div>
 
-                <Input id={'username'}
-                       label={t('Username')}
-                       error={errors.username}
-                       type={'text'}
-                       name={'username'}
-                       placeholder={t('Username')}
-                       onchange={this.onChangeInput}></Input>
+                    <Input id={'username'}
+                           label={t('Username')}
+                           error={errors.username}
+                           type={'text'}
+                           name={'username'}
+                           placeholder={t('Username')}
+                           onchange={this.onChangeInput}></Input>
 
-                <Input id={"displayName"}
-                       label={t('DisplayName')}
-                       error={errors.displayName}
-                       type={"text"}
-                       name={"displayName"}
-                       placeholder={t('DisplayName')}
-                       onchange={this.onChangeInput}></Input>
+                    <Input id={"displayName"}
+                           label={t('DisplayName')}
+                           error={errors.displayName}
+                           type={"text"}
+                           name={"displayName"}
+                           placeholder={t('DisplayName')}
+                           onchange={this.onChangeInput}></Input>
 
-                <Input id={"password"}
-                       label={t('Password')}
-                       error={errors.password}
-                       type={"password"}
-                       name={"password"}
-                       placeholder={t('Password')}
-                       onchange={this.onChangeInput}></Input>
+                    <Input id={"password"}
+                           label={t('Password')}
+                           error={errors.password}
+                           type={"password"}
+                           name={"password"}
+                           placeholder={t('Password')}
+                           onchange={this.onChangeInput}></Input>
 
-                <Input id={"passwordRepeat"}
-                       label={t('PasswordRepeat')}
-                       error={errors.passwordRepeat}
-                       type={"password"}
-                       name={"passwordRepeat"}
-                       placeholder={t('PasswordRepeat')}
-                       onchange={this.onChangeInput}></Input>
+                    <Input id={"passwordRepeat"}
+                           label={t('PasswordRepeat')}
+                           error={errors.passwordRepeat}
+                           type={"password"}
+                           name={"passwordRepeat"}
+                           placeholder={t('PasswordRepeat')}
+                           onchange={this.onChangeInput}></Input>
 
-                <div className={"text-center"}>
-                    <button className="btn btn-primary" disabled={pendingApiCall || errors.passwordRepeat !== undefined}
-                            onClick={this.onClickSignUp}>
-                        {pendingApiCall &&
-                            <span className="spinner-border-sm spinner-border mr-1"></span>}{t('Sign Up')}
-                    </button>
-                </div>
-            </form>
-        </div>)
+                    <div className={"text-center"}>
+                        <button className="btn btn-primary"
+                                disabled={pendingApiCall || errors.passwordRepeat !== undefined}
+                                onClick={this.onClickSignUp}>
+                            {pendingApiCall &&
+                                <span className="spinner-border-sm spinner-border mr-1"></span>}{t('Sign Up')}
+                        </button>
+                    </div>
+                </form>
+            </div>)
     }
 }
 
