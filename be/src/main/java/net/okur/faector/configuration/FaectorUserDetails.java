@@ -1,5 +1,6 @@
 package net.okur.faector.configuration;
 
+import lombok.Getter;
 import net.okur.faector.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -10,6 +11,7 @@ import java.util.Collection;
 public class FaectorUserDetails implements UserDetails {
 
     private static final long serialVersionUID = -4310216461092985623L;
+    @Getter
     User user;
 
     public FaectorUserDetails(User user) {
