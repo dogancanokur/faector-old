@@ -33,14 +33,4 @@ public class UserController {
     public ResponseEntity<?> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAllUsers());
     }
-
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-//    public ApiError handleValidationException(MethodArgumentNotValidException notValidException) {
-//        Map<String, String> validationErrors = new HashMap<>();
-//        for (FieldError fieldError : notValidException.getBindingResult().getFieldErrors()) {
-//            validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
-//        }
-//        return new ApiError(400, "Validation Error", "/api/1.0/users/create-user", validationErrors);
-//    }
 }

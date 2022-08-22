@@ -21,14 +21,8 @@ public class ApiError {
     private String path;
     @JsonView(Views.Base.class)
     private long timestamp = new Date().getTime();
+    @JsonView(Views.Base.class)
     private Map<String, String> validationErrors;
-
-    public ApiError(int status, String message, String path, Map<String, String> validationErrors) {
-        this.status = status;
-        this.message = message;
-        this.path = path;
-        this.validationErrors = validationErrors;
-    }
 
     public ApiError(int status, String message, String path) {
         this.status = status;
