@@ -5,48 +5,65 @@ import {login} from "../api/apiCalls";
 
 class LoginPage extends Component {
     state = {
-        username: null, password: null, errors: {}
+        username: null,
+        password: null,
+        error: null,
+        pendingApiCall: false
     }
     onChangeInput = (event) => {
         const {name, value} = event.target;
-        this.setState({[name]: value})
+        this.setState({
+            [name]: value,
+            error: null
+        });
     }
-    onClickLogin = event => {
+    onClickLogin = async event => {
         event.preventDefault();
         const {username, password} = this.state;
-        login({username, password});
+        this.setState({error: null});
+        try {
+            this.setState({
+                pendingApiCall: true
+            })
+            await login({username, password});
+        } catch (apiError) {
+            this.setState({error: apiError.response.data.message});
+        }
+
+        this.setState({
+            pendingApiCall: false
+        })
     }
 
     render() {
         const {t} = this.props;
-        const {errors} = this.state;
+        const {username, password, pendingApiCall} = this.state;
+        const buttonDisabled = !(username && password);
         return (
             <div className={"container"}>
                 <form>
                     <div>
                         <h1 className={'d-inline-flex'}>{t('Login')}</h1>
                     </div>
-
                     <Input
-                        id={'username'}
+                        id={'login_username'}
                         label={t('Username')}
-                        error={errors.username}
                         type={'text'}
                         name={'username'}
                         placeholder={t('Username')}
                         onchange={this.onChangeInput}
                     ></Input>
                     <Input
-                        id={'password'}
+                        id={'login_password'}
                         label={t('Password')}
-                        error={errors.password}
                         type={'password'}
                         name={'password'}
                         placeholder={t('Password')}
                         onchange={this.onChangeInput}
                     ></Input>
+                    {this.state.error && <div className="alert alert-danger" role="alert">{this.state.error}</div>}
                     <div className={'text-center'}>
-                        <button className={'btn btn-primary'}
+                        <button className={'btn btn-primary'} disabled={buttonDisabled || pendingApiCall}
                                 onClick={this.onClickLogin}>{t('Login')}</button>
                     </div>
                 </form>
