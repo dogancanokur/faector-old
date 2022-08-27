@@ -1,15 +1,30 @@
 import React, {Component} from 'react';
 import Input from "../components/Input";
 import {withTranslation} from "react-i18next";
+import axios from "axios";
 import {login} from "../api/apiCalls";
 
 class LoginPage extends Component {
     state = {
-        username: null,
-        password: null,
-        error: null,
-        pendingApiCall: false
+        username: null, password: null, error: null, pendingApiCall: false
     }
+
+    componentDidMount() {
+        console.log("login page added to screen");
+        axios.interceptors.request.use((request) => {
+            this.setState({pendingApiCall: true});
+            return request;
+        });
+
+        axios.interceptors.response.use((response) => {
+            this.setState({pendingApiCall: false});
+            return response;
+        }, (error) => {
+            this.setState({pendingApiCall: false});
+            return error;
+        });
+    }
+
     onChangeInput = (event) => {
         const {name, value} = event.target;
         this.setState({
@@ -22,17 +37,10 @@ class LoginPage extends Component {
         const {username, password} = this.state;
         this.setState({error: null});
         try {
-            this.setState({
-                pendingApiCall: true
-            })
             await login({username, password});
         } catch (apiError) {
             this.setState({error: apiError.response.data.message});
         }
-
-        this.setState({
-            pendingApiCall: false
-        })
     }
 
     render() {
