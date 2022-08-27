@@ -7,18 +7,25 @@ class ApiProgress extends Component {
     }
 
     componentDidMount() {
-        axios.interceptors.request.use((request) => {
-            this.setState({pendingApiCall: true});
+        axios.interceptors.request.use(request => {
+            this.updateApiCallFor(request.url, true);
             return request;
         });
-        axios.interceptors.response.use((response) => {
-            this.setState({pendingApiCall: false});
+
+        axios.interceptors.response.use(response => {
+            this.updateApiCallFor(response.config.url, false);
             return response;
-        }, (error) => {
-            this.setState({pendingApiCall: false});
-            return error;
+        }, error => {
+            this.updateApiCallFor(error.config.url, false);
+            throw error;
         });
     }
+
+    updateApiCallFor = (url, inProgress) => {
+        if (url === this.props.path) {
+            this.setState({pendingApiCall: inProgress});
+        }
+    };
 
     render() {
         const {pendingApiCall} = this.state

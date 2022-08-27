@@ -28,7 +28,7 @@ class LoginPage extends Component {
 
     render() {
         const {t, pendingApiCall} = this.props;
-        const {username, password} = this.state;
+        const {username, password, error} = this.state;
         const buttonDisabled = !(username && password);
         return (<div className={"container"}>
             <form>
@@ -51,7 +51,7 @@ class LoginPage extends Component {
                     placeholder={t('Password')}
                     onchange={this.onChangeInput}
                 ></Input>
-                {this.state.error && <div className="alert alert-danger" role="alert">{this.state.error}</div>}
+                {error && <div className="alert alert-danger" role="alert">{error}</div>}
                 <div className={'text-center'}>
                     <ButtonWithProgress
                         onClick={this.onClickLogin}
