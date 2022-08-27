@@ -6,14 +6,14 @@ import ButtonWithProgress from "../components/ButtonWithProgress";
 
 class UserSignUpPage extends React.Component {
     state = {
-        username: null, displayName: null, password: null, passwordRepeat: null, pendingApiCall: false, errors: {}
+        username: null, displayName: null, password: null, passwordRepeat: null, errors: {}
     }
     onChangeInput = (event) => {
         const {t} = this.props;
         const {name, value} = event.target;
         const errors = {...this.state.errors};
         if (name === "password" || name === "passwordRepeat") {
-            if ((name === "password" && value !== this.state.passwordRepeat) || name === "passwordRepeat" && value !== this.state.password) {
+            if ((name === "password" && value !== this.state.passwordRepeat) || (name === "passwordRepeat" && value !== this.state.password)) {
                 errors["passwordRepeat"] = t('PasswordMismatch');
             } else {
                 errors["passwordRepeat"] = undefined;
@@ -30,22 +30,19 @@ class UserSignUpPage extends React.Component {
     onClickSignUp = async (event) => {
         event.preventDefault();
         const {username, displayName, password} = this.state;
-        this.setState({pendingApiCall: true});
         const body = {username, displayName, password}
         try {
             const response = await signUp(body);
-            console.log(response);
         } catch (e) {
             if (e.response.data.validationErrors) {
                 this.setState({errors: e.response.data.validationErrors})
             }
         }
-        this.setState({pendingApiCall: false});
     }
 
     render() {
-        const {pendingApiCall, errors} = this.state;
-        const {t} = this.props;
+        const {errors} = this.state;
+        const {pendingApiCall, t} = this.props;
         return (<div className={"container"}>
             <form>
                 <div>

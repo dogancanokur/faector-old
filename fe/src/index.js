@@ -6,12 +6,21 @@ import reportWebVitals from './reportWebVitals';
 import './i18n';
 import LanguageSelector from "./components/LanguageSelector";
 import LoginPage from "./pages/LoginPage";
+import ApiProgress from "./shared/ApiProgress";
+import UserSignUpPage from "./pages/UserSignUpPage";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(<React.StrictMode>
-    <LoginPage/>
-    <LanguageSelector/>
+    <div>
+        <ApiProgress>
+            <LoginPage/>
+        </ApiProgress>
+        <ApiProgress>
+            <UserSignUpPage/>
+        </ApiProgress>
+        <LanguageSelector/>
+    </div>
 </React.StrictMode>);
 
 // If you want to start measuring performance in your app, pass a function

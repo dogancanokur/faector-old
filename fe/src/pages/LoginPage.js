@@ -1,29 +1,12 @@
 import React, {Component} from 'react';
 import Input from "../components/Input";
 import {withTranslation} from "react-i18next";
-import axios from "axios";
 import {login} from "../api/apiCalls";
 import ButtonWithProgress from "../components/ButtonWithProgress";
 
 class LoginPage extends Component {
     state = {
-        username: null, password: null, error: null, pendingApiCall: false
-    }
-
-    componentDidMount() {
-        console.log("login page added to screen");
-        axios.interceptors.request.use((request) => {
-            this.setState({pendingApiCall: true});
-            return request;
-        });
-
-        axios.interceptors.response.use((response) => {
-            this.setState({pendingApiCall: false});
-            return response;
-        }, (error) => {
-            this.setState({pendingApiCall: false});
-            return error;
-        });
+        username: null, password: null, error: null
     }
 
     onChangeInput = (event) => {
@@ -44,8 +27,8 @@ class LoginPage extends Component {
     }
 
     render() {
-        const {t} = this.props;
-        const {username, password, pendingApiCall} = this.state;
+        const {t, pendingApiCall} = this.props;
+        const {username, password} = this.state;
         const buttonDisabled = !(username && password);
         return (<div className={"container"}>
             <form>
