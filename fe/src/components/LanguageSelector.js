@@ -9,15 +9,13 @@ const LanguageSelector = (props) => {
         changeLanguage(language);
     }
 
-    return (
-        <div className={'container'}>
-            <img style={{cursor: 'pointer'}} src="/img/flags/flat/tr.png" alt="Turkey Flag"
-                 onClick={() => onChangeLanguage('tr')}/>
-            &nbsp;
-            <img style={{cursor: 'pointer'}} src="/img/flags/flat/en.png" alt="Great Britain Flag"
-                 onClick={() => onChangeLanguage('en')}/>
-        </div>
-    );
+    return (<div className={'container'}>
+        <img style={{cursor: 'pointer'}} src="/img/flags/flat/tr.png" alt="Turkey Flag"
+             onClick={() => onChangeLanguage('tr')}/>
+        &nbsp;
+        <img style={{cursor: 'pointer'}} src="/img/flags/flat/en.png" alt="Great Britain Flag"
+             onClick={() => onChangeLanguage('en')}/>
+    </div>);
 };
 
 export default withTranslation()(LanguageSelector);

@@ -13,7 +13,7 @@ i18next.use(initReactI18next).init({
                 'PasswordMismatch': 'Password Mismatch',
                 'Login': 'Login'
             }
-        },
+        },//
         tr: {
             translations: {
                 'SignUp': 'Kayıt Ol',
@@ -25,15 +25,13 @@ i18next.use(initReactI18next).init({
                 'Login': 'Giriş Yap'
             }
         }
-    },
-    fallbackLng: 'en',
-    ns: ['translations'],
-    defaultNS: ['translations'],
-    keySeparator: false,
+    }, fallbackLng: 'en',//
+    ns: ['translations'],//
+    defaultNS: ['translations'],//
+    keySeparator: false,//
     interpolation: {
-        escapeValue: false,
-        formatSeparator: ',',
-    },
+        escapeValue: false, formatSeparator: ','
+    },//
     react: {
         wait: true
     }

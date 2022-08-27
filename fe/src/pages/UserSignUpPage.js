@@ -13,8 +13,7 @@ class UserSignUpPage extends React.Component {
         const {name, value} = event.target;
         const errors = {...this.state.errors};
         if (name === "password" || name === "passwordRepeat") {
-            if ((name === "password" && value !== this.state.passwordRepeat) ||
-                name === "passwordRepeat" && value !== this.state.password) {
+            if ((name === "password" && value !== this.state.passwordRepeat) || name === "passwordRepeat" && value !== this.state.password) {
                 errors["passwordRepeat"] = t('PasswordMismatch');
             } else {
                 errors["passwordRepeat"] = undefined;
@@ -47,55 +46,53 @@ class UserSignUpPage extends React.Component {
     render() {
         const {pendingApiCall, errors} = this.state;
         const {t} = this.props;
-        return (
-            <div className={"container"}>
-                <form>
-                    <div>
-                        <h1 className={'d-inline-flex'}>{t('SignUp')}</h1>
-                    </div>
+        return (<div className={"container"}>
+            <form>
+                <div>
+                    <h1 className={'d-inline-flex'}>{t('SignUp')}</h1>
+                </div>
 
-                    <Input id={'username'}
-                           label={t('Username')}
-                           error={errors.username}
-                           type={'text'}
-                           name={'username'}
-                           placeholder={t('Username')}
-                           onchange={this.onChangeInput}></Input>
+                <Input id={'username'}
+                       label={t('Username')}
+                       error={errors.username}
+                       type={'text'}
+                       name={'username'}
+                       placeholder={t('Username')}
+                       onchange={this.onChangeInput}></Input>
 
-                    <Input id={"displayName"}
-                           label={t('DisplayName')}
-                           error={errors.displayName}
-                           type={"text"}
-                           name={"displayName"}
-                           placeholder={t('DisplayName')}
-                           onchange={this.onChangeInput}></Input>
+                <Input id={"displayName"}
+                       label={t('DisplayName')}
+                       error={errors.displayName}
+                       type={"text"}
+                       name={"displayName"}
+                       placeholder={t('DisplayName')}
+                       onchange={this.onChangeInput}></Input>
 
-                    <Input id={"password"}
-                           label={t('Password')}
-                           error={errors.password}
-                           type={"password"}
-                           name={"password"}
-                           placeholder={t('Password')}
-                           onchange={this.onChangeInput}></Input>
+                <Input id={"password"}
+                       label={t('Password')}
+                       error={errors.password}
+                       type={"password"}
+                       name={"password"}
+                       placeholder={t('Password')}
+                       onchange={this.onChangeInput}></Input>
 
-                    <Input id={"passwordRepeat"}
-                           label={t('PasswordRepeat')}
-                           error={errors.passwordRepeat}
-                           type={"password"}
-                           name={"passwordRepeat"}
-                           placeholder={t('PasswordRepeat')}
-                           onchange={this.onChangeInput}></Input>
+                <Input id={"passwordRepeat"}
+                       label={t('PasswordRepeat')}
+                       error={errors.passwordRepeat}
+                       type={"password"}
+                       name={"passwordRepeat"}
+                       placeholder={t('PasswordRepeat')}
+                       onchange={this.onChangeInput}></Input>
 
-                    <div className={"text-center"}>
-                        <ButtonWithProgress
-                            onClick={this.onClickSignUp}
-                            pendingApiCall={pendingApiCall}
-                            disabled={pendingApiCall || errors.passwordRepeat !== undefined}
-                            text={t('Sign Up')}/>
-                    </div>
-                </form>
-            </div>
-        )
+                <div className={"text-center"}>
+                    <ButtonWithProgress
+                        onClick={this.onClickSignUp}
+                        pendingApiCall={pendingApiCall}
+                        disabled={pendingApiCall || errors.passwordRepeat !== undefined}
+                        text={t('Sign Up')}/>
+                </div>
+            </form>
+        </div>)
     }
 }
 
