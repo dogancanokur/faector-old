@@ -3,6 +3,7 @@ import Input from "../components/Input";
 import {withTranslation} from "react-i18next";
 import axios from "axios";
 import {login} from "../api/apiCalls";
+import ButtonWithProgress from "../components/ButtonWithProgress";
 
 class LoginPage extends Component {
     state = {
@@ -71,8 +72,11 @@ class LoginPage extends Component {
                     ></Input>
                     {this.state.error && <div className="alert alert-danger" role="alert">{this.state.error}</div>}
                     <div className={'text-center'}>
-                        <button className={'btn btn-primary'} disabled={buttonDisabled || pendingApiCall}
-                                onClick={this.onClickLogin}>{t('Login')}</button>
+                        <ButtonWithProgress
+                            onClick={this.onClickLogin}
+                            pendingApiCall={pendingApiCall}
+                            disabled={buttonDisabled || pendingApiCall}
+                            text={t('Login')}/>
                     </div>
                 </form>
             </div>
