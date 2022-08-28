@@ -5,7 +5,7 @@ i18next.use(initReactI18next).init({
     resources: {
         en: {
             translations: {
-                'SignUp': 'Sign Up',
+                'Sign Up': 'Sign Up',
                 'Username': 'Username',
                 'DisplayName': 'Display Name',
                 'PasswordRepeat': 'Password Repeat',
@@ -16,7 +16,7 @@ i18next.use(initReactI18next).init({
         },//
         tr: {
             translations: {
-                'SignUp': 'Kayıt Ol',
+                'Sign Up': 'Kayıt Ol',
                 'Username': 'Kullanıcı Adı',
                 'DisplayName': 'Görünen İsim',
                 'PasswordRepeat': 'Şifreyi Tekrarla',

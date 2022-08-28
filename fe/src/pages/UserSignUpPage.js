@@ -47,7 +47,7 @@ class UserSignUpPage extends React.Component {
         return (<div className={"container"}>
             <form>
                 <div>
-                    <h1 className={'d-inline-flex'}>{t('SignUp')}</h1>
+                    <h1 className={'d-inline-flex'}>{t('Sign Up')}</h1>
                 </div>
 
                 <Input id={'username'}

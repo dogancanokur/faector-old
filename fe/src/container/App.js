@@ -4,12 +4,14 @@ import HomePage from "../pages/HomePage";
 import UserPage from "../pages/UserPage";
 import LoginPage from "../pages/LoginPage";
 import UserSignUpPage from "../pages/UserSignUpPage";
-import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
+import {HashRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import TopBar from "../components/TopBar";
 
 class App extends Component {
     render() {
         return (<div>
-            <HashRouter>
+            <Router>
+                <TopBar/>
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
                     <Route path="/login" component={LoginPage}/>
@@ -17,7 +19,7 @@ class App extends Component {
                     <Route path="/user:username" component={UserPage}/>
                     <Redirect to="/"/>
                 </Switch>
-            </HashRouter>
+            </Router>
             <LanguageSelector/>
         </div>);
     }
