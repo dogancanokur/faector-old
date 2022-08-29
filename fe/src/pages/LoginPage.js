@@ -65,6 +65,6 @@ class LoginPage extends Component {
     }
 }
 
-const LoginPageWithTranslation = withApiProgress(LoginPage, '/api/1.0/auth');
+const LoginPageWithTranslation = withTranslation()(LoginPage);
 
-export default withApiProgress(withTranslation()(LoginPageWithTranslation), '/api/1.0/auth');
+export default withApiProgress(LoginPageWithTranslation, '/api/1.0/auth');
