@@ -9,7 +9,6 @@ class LoginPage extends Component {
     state = {
         username: null, password: null, error: null
     }
-
     onChangeInput = (event) => {
         const {name, value} = event.target;
         this.setState({
@@ -17,11 +16,13 @@ class LoginPage extends Component {
         });
     }
     onClickLogin = async event => {
+        const {push} = this.props.history;
         event.preventDefault();
         const {username, password} = this.state;
         this.setState({error: null});
         try {
             await login({username, password});
+            push('/');
         } catch (apiError) {
             this.setState({error: apiError.response.data.message});
         }
