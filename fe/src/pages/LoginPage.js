@@ -19,10 +19,12 @@ class LoginPage extends Component {
         const {push} = this.props.history;
         event.preventDefault();
         const {username, password} = this.state;
+        const {onLoginSuccess} = this.props;
         this.setState({error: null});
         try {
             await login({username, password});
-            push('/');
+            push('/'); // redirect to homepage after login
+            onLoginSuccess(username);
         } catch (apiError) {
             this.setState({error: apiError.response.data.message});
         }

@@ -4,14 +4,8 @@ import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
 
 class TopBar extends Component {
-    state = {
-        isLoggedIn: false,
-        username: ""
-    }
-
     render() {
-        const {isLoggedIn, username} = this.state;
-        const {t} = this.props;
+        const {t, isLoggedIn, loggedUsername, onLogoutSuccess} = this.props;
         let links = (<ul className="navbar-nav ml-auto">
             <li>
                 <Link className="nav-link" to="/login">{t('Login')}</Link>
@@ -23,8 +17,8 @@ class TopBar extends Component {
 
         if (isLoggedIn) {
             links = (<ul className="navbar-nav ml-auto">
-                <li className="nav-link"><Link to={`/user/${username}`}>{username}</Link></li>
-                <li className="nav-link">{t('Logout')}</li>
+                <li className="nav-link"><Link to={`/user/${loggedUsername}`}>{loggedUsername}</Link></li>
+                <li className="nav-link" style={{cursor: 'pointer'}} onClick={onLogoutSuccess}>{t('Logout')}</li>
             </ul>);
         }
 
