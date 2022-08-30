@@ -11,7 +11,8 @@ i18next.use(initReactI18next).init({
                 'PasswordRepeat': 'Password Repeat',
                 'Password': 'Password',
                 'PasswordMismatch': 'Password Mismatch',
-                'Login': 'Login'
+                'Login': 'Login',
+                'Logout': 'Logout'
             }
         },//
         tr: {
@@ -22,7 +23,8 @@ i18next.use(initReactI18next).init({
                 'PasswordRepeat': 'Şifreyi Tekrarla',
                 'Password': 'Şifre',
                 'PasswordMismatch': 'Şifreler aynı olmalıdır.',
-                'Login': 'Giriş Yap'
+                'Login': 'Giriş Yap',
+                'Logout': 'Çıkış Yap'
             }
         }
     }, fallbackLng: 'en',//
