@@ -8,32 +8,14 @@ import {HashRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import TopBar from "../components/TopBar";
 
 class App extends Component {
-    state = {
-        isLoggedIn: false,
-        loggedUsername: undefined
-    }
-    onLoginSuccess = (username) => {
-        this.setState({
-            loggedUsername: username,
-            isLoggedIn: true
-        });
-    }
-    onLogoutSuccess = () => {
-        this.setState({
-            loggedUsername: "",
-            isLoggedIn: false
-        });
-    }
-
     render() {
-        const {isLoggedIn, loggedUsername} = this.state;
+        const isLoggedIn = false;
+        const loggedUsername = "";
 
         return (
             <div>
                 <Router>
-                    <TopBar isLoggedIn={isLoggedIn}
-                            loggedUsername={loggedUsername}
-                            onLogoutSuccess={this.onLogoutSuccess}/>
+                    <TopBar/>
                     <Switch>
                         <Route exact path="/" component={HomePage}/>
                         {!isLoggedIn &&
