@@ -28,27 +28,29 @@ class App extends Component {
     render() {
         const {isLoggedIn, loggedUsername} = this.state;
 
-        return (<div>
-            <Router>
-                <TopBar isLoggedIn={isLoggedIn}
-                        loggedUsername={loggedUsername}
-                        onLogoutSuccess={this.onLogoutSuccess}/>
-                <Switch>
-                    <Route exact path="/" component={HomePage}/>
-                    {!isLoggedIn &&
-                        <Route path="/login" component={(props) => {
-                            return <LoginPage {...props}
-                                              onLoginSuccess={this.onLoginSuccess}/>
-                        }}/>}
-                    {!isLoggedIn && <Route path="/signup" component={UserSignUpPage}/>}
-                    <Route path="/user/:username" component={(props) => {
-                        return <UserPage {...props} loggedUsername={loggedUsername}/>
-                    }}/>
-                    <Redirect to="/"/>
-                </Switch>
-            </Router>
-            <LanguageSelector/>
-        </div>);
+        return (
+            <div>
+                <Router>
+                    <TopBar isLoggedIn={isLoggedIn}
+                            loggedUsername={loggedUsername}
+                            onLogoutSuccess={this.onLogoutSuccess}/>
+                    <Switch>
+                        <Route exact path="/" component={HomePage}/>
+                        {!isLoggedIn &&
+                            <Route path="/login" component={(props) => {
+                                return <LoginPage {...props}
+                                                  onLoginSuccess={this.onLoginSuccess}/>
+                            }}/>}
+                        {!isLoggedIn && <Route path="/signup" component={UserSignUpPage}/>}
+                        <Route path="/user/:username" component={(props) => {
+                            return <UserPage {...props} loggedUsername={loggedUsername}/>
+                        }}/>
+                        <Redirect to="/"/>
+                    </Switch>
+                </Router>
+                <LanguageSelector/>
+            </div>
+        );
     }
 }
 
