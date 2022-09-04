@@ -4,27 +4,35 @@ import {Authentication} from "../shared/AuthenticationContext";
 import {withTranslation} from "react-i18next";
 
 const ProfileCard = (props) => {
-    return (<Authentication.Consumer>
-        {value => {
-            const translate = props.t;
-            const pathUsername = props.match.params.username;
-            const {loggedUsername} = value.state;
-            let message = translate('We cannot edit');
-            if (pathUsername === loggedUsername) {
-                message = translate('We can edit');
-            }
-
-            return (
-                <div>
-                    logged User = {loggedUsername}
-                    <br/>
-                    path user = {pathUsername}
-                    <br/>
-                    {message}
-                </div>
-            );
-        }}
-    </Authentication.Consumer>);
+    const translate = props.t;
+    const pathUsername = props.match.params.username;
+    const {loggedUsername} = props;
+    let message = translate('We cannot edit');
+    if (pathUsername === loggedUsername) {
+        message = translate('We can edit');
+    }
+    return (
+        <div>
+            logged User = {loggedUsername}
+            <br/>
+            path user = {pathUsername}
+            <br/>
+            {message}
+        </div>
+    );
 }
 
-export default withTranslation()(withRouter(ProfileCard));
+class ProfileCardContextWrapper extends React.Component {
+    static contextType = Authentication;
+
+    render() {
+        return (
+            <div>
+                <ProfileCard {...this.props}
+                             loggedUsername={this.context.state.loggedUsername}/>
+            </div>
+        );
+    }
+}
+
+export default withTranslation()(withRouter(ProfileCardContextWrapper));
