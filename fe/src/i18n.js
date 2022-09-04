@@ -12,7 +12,9 @@ i18next.use(initReactI18next).init({
                 'Password': 'Password',
                 'PasswordMismatch': 'Password Mismatch',
                 'Login': 'Login',
-                'Logout': 'Logout'
+                'Logout': 'Logout',
+                'We can edit': 'We can edit',
+                'We cannot edit': 'We cannot edit',
             }
         },//
         tr: {
@@ -24,7 +26,9 @@ i18next.use(initReactI18next).init({
                 'Password': 'Şifre',
                 'PasswordMismatch': 'Şifreler aynı olmalıdır.',
                 'Login': 'Giriş Yap',
-                'Logout': 'Çıkış Yap'
+                'Logout': 'Çıkış Yap',
+                'We cannot edit': 'Edit Kapalı',
+                'We can edit': 'Edit Açık',
             }
         }
     }, fallbackLng: 'en',//
