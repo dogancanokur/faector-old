@@ -4,10 +4,15 @@ import {withTranslation} from "react-i18next";
 import {login} from "../api/apiCalls";
 import ButtonWithProgress from "../components/ButtonWithProgress";
 import {withApiProgress} from "../shared/ApiProgress";
+import {Authentication} from "../shared/AuthenticationContext";
 
 class LoginPage extends Component {
+    static contextType = Authentication;
+
     state = {
-        username: null, password: null, error: null
+        username: null,
+        password: null,
+        error: null
     }
     onChangeInput = (event) => {
         const {name, value} = event.target;
@@ -19,12 +24,17 @@ class LoginPage extends Component {
         const {push} = this.props.history;
         event.preventDefault();
         const {username, password} = this.state;
-        const {onLoginSuccess} = this.props;
+        const {onLoginSuccess} = this.context;
         this.setState({error: null});
         try {
-            await login({username, password});
+            const response = await login({username, password});
+            const {displayName, image} = response.data;
+            const authState = {
+                loggedUsername: username,
+                password, displayName, image
+            };
+            onLoginSuccess(authState);
             push('/'); // redirect to homepage after login
-            onLoginSuccess(username);
         } catch (apiError) {
             this.setState({error: apiError.response.data.message});
         }

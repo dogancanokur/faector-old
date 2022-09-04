@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export const Authentication = React.createContext();
+export const Authentication = React.createContext(undefined);
 
 class AuthenticationContext extends Component {
     state = {

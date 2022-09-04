@@ -6,12 +6,13 @@ import LoginPage from "../pages/LoginPage";
 import UserSignUpPage from "../pages/UserSignUpPage";
 import {HashRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import TopBar from "../components/TopBar";
+import {Authentication} from "../shared/AuthenticationContext";
 
 class App extends Component {
-    render() {
-        const isLoggedIn = false;
-        const loggedUsername = "";
+    static contextType = Authentication;
 
+    render() {
+        const {isLoggedIn} = this.context.state;
         return (
             <div>
                 <Router>
@@ -19,10 +20,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/" component={HomePage}/>
                         {!isLoggedIn &&
-                            <Route path="/login" component={(props) => {
-                                return <LoginPage {...props}
-                                                  onLoginSuccess={this.onLoginSuccess}/>
-                            }}/>}
+                            <Route path="/login" component={LoginPage}/>}
                         {!isLoggedIn && <Route path="/signup" component={UserSignUpPage}/>}
                         <Route path="/user/:username" component={(props) => {
                             return <UserPage {...props} loggedUsername={loggedUsername}/>
