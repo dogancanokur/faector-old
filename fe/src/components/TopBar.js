@@ -2,11 +2,19 @@ import React, {Component} from 'react';
 import logo from "../assests/logo.png";
 import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
+import {connect} from "react-redux";
 
 class TopBar extends Component {
 
+    onLogoutSuccess = () => {
+        const action = {
+            type: 'logout-success'
+        };
+        this.props.dispatch(action);
+    }
+
     render() {
-        const {t, isLoggedIn, loggedUsername, onLogoutSuccess} = this.props;
+        const {t, isLoggedIn, loggedUsername} = this.props;
 
         let links = (<ul className="navbar-nav ml-auto">
             <li>
@@ -21,7 +29,7 @@ class TopBar extends Component {
             links = (<ul className="navbar-nav ml-auto">
                 <li className="nav-link"><Link to={`/user/${loggedUsername}`}>{loggedUsername}</Link></li>
                 <li className="nav-link" style={{cursor: 'pointer'}}
-                    onClick={onLogoutSuccess}>{t('Logout')}</li>
+                    onClick={this.onLogoutSuccess}>{t('Logout')}</li>
             </ul>);
         }
 
@@ -35,4 +43,15 @@ class TopBar extends Component {
     }
 }
 
-export default withTranslation()(TopBar);
+const TopBarWithTranslation = withTranslation()(TopBar);
+
+const mapStateToProps = (store) => {
+    return {
+        // store
+        isLoggedIn: store.isLoggedIn,
+        loggedUsername: store.loggedUsername
+    }
+}
+
+// export default TopBarWithTranslation;
+export default connect(mapStateToProps)(TopBarWithTranslation);
