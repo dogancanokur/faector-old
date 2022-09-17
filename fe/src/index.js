@@ -6,32 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import './i18n';
 import App from "./container/App";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
+import configureStore from "./redux/configureStore";
 
-const loggedInState = {
-    isLoggedIn: true,
-    loggedUsername: "user1",
-    displayName: "Display 1",
-    image: null,
-    password: "psaf"
-}
-const defaultState = {
-    isLoggedIn: false,
-    loggedUsername: null,
-    displayName: null,
-    image: null,
-    password: null
-}
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-const reducer = (state = {...defaultState}, action) => {
-    if (action.type === 'logout-success') {
-        return defaultState;
-    }
-    return state;
-};
-
-const store = createStore(reducer, loggedInState);
+const store = configureStore();
 
 root.render(
     <Provider store={store}>

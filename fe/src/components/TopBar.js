@@ -3,18 +3,12 @@ import logo from "../assests/logo.png";
 import {Link} from "react-router-dom";
 import {withTranslation} from "react-i18next";
 import {connect} from "react-redux";
+import {logoutSuccess} from "../redux/authActions";
 
 class TopBar extends Component {
 
-    onLogoutSuccess = () => {
-        const action = {
-            type: 'logout-success'
-        };
-        this.props.dispatch(action);
-    }
-
     render() {
-        const {t, isLoggedIn, loggedUsername} = this.props;
+        const {t, isLoggedIn, loggedUsername, onLogoutSuccess} = this.props;
 
         let links = (<ul className="navbar-nav ml-auto">
             <li>
@@ -29,7 +23,7 @@ class TopBar extends Component {
             links = (<ul className="navbar-nav ml-auto">
                 <li className="nav-link"><Link to={`/user/${loggedUsername}`}>{loggedUsername}</Link></li>
                 <li className="nav-link" style={{cursor: 'pointer'}}
-                    onClick={this.onLogoutSuccess}>{t('Logout')}</li>
+                    onClick={onLogoutSuccess}>{t('Logout')}</li>
             </ul>);
         }
 
@@ -53,5 +47,10 @@ const mapStateToProps = (store) => {
     }
 }
 
-// export default TopBarWithTranslation;
-export default connect(mapStateToProps)(TopBarWithTranslation);
+const mapDispatchToProps = (dispatch) => { // eger bu varsa maplenen deger ekrana gelir
+    return {
+        onLogoutSuccess: () => dispatch(logoutSuccess())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopBarWithTranslation);
