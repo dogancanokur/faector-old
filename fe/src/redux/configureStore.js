@@ -2,6 +2,11 @@ import {createStore} from "redux";
 import authReducer from "./authReducer";
 
 const loggedInState = {
+    // isLoggedIn: false,
+    // loggedUsername: undefined,
+    // displayName: undefined,
+    // image: undefined,
+    // password: undefined
     isLoggedIn: true,
     loggedUsername: "user1",
     displayName: "Display 1",
