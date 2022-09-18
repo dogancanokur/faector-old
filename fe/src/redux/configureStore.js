@@ -1,4 +1,5 @@
-import {createStore} from "redux";
+import {applyMiddleware, compose, createStore} from "redux";
+import thunk from "redux-thunk";
 import authReducer from "./authReducer";
 import SecureLS from 'secure-ls';
 
@@ -22,8 +23,13 @@ const updateStateInStorage = newState => {
 }
 
 const configureStore = () => {
-    const store = createStore(authReducer, getStateFromStorage(),
-        (window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) /*for debugger*/)
+
+    const middlewareEnhancer = applyMiddleware(thunk)
+    const composedEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose /*for debugger*/;
+
+    const store = createStore(authReducer, getStateFromStorage(), composedEnhancers(middlewareEnhancer)
+        /*(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) /!*for debugger*!/*/);
+
     store.subscribe(() => {
         updateStateInStorage();
     })

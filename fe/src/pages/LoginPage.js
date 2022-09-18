@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import Input from "../components/Input";
 import {withTranslation} from "react-i18next";
-import {login} from "../api/apiCalls";
 import ButtonWithProgress from "../components/ButtonWithProgress";
-import {withApiProgress} from "../shared/ApiProgress"
+import {withApiProgress} from "../shared/ApiProgress";
 import {connect} from 'react-redux';
-import {loginSuccess} from "../redux/authActions";
-
+import {loginHandler} from "../redux/authActions";
 
 class LoginPage extends Component {
 
@@ -23,23 +21,27 @@ class LoginPage extends Component {
     }
 
     onClickLogin = async event => {
-        const {push} = this.props.history;
         event.preventDefault();
         const {username, password} = this.state;
-        this.setState({error: null});
+        const creds = {
+            username, password
+        };
+
+        const {history, dispatch} = this.props;
+        const {push} = history;
+
+        this.setState({
+            error: null
+        });
         try {
-            const response = await login({username, password});
-            const {displayName, image} = response.data;
-            const authState = {
-                loggedUsername: username,
-                password, displayName, image
-            };
-            this.props.onLoginSuccess(authState);
-            push('/'); // redirect to homepage after login
+            await dispatch(loginHandler(creds));
+            push('/');
         } catch (apiError) {
-            this.setState({error: apiError.response.data.message});
+            this.setState({
+                error: apiError.response.data.message
+            });
         }
-    }
+    };
 
     render() {
         const {t, pendingApiCall} = this.props;
@@ -80,9 +82,5 @@ class LoginPage extends Component {
 }
 
 const LoginPageWithTranslation = withTranslation()(LoginPage);
-const mapDispatchToProps = dispatch => {
-    return {
-        onLoginSuccess: authState => dispatch(loginSuccess(authState))
-    }
-}
-export default connect(null, mapDispatchToProps)(withApiProgress(LoginPageWithTranslation, '/api/1.0/auth'));
+
+export default connect()(withApiProgress(LoginPageWithTranslation, '/api/1.0/auth'));
